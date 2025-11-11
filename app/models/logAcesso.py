@@ -7,10 +7,10 @@ class LogAcesso(db.Model):
     __tablename__ = 'logs_acesso'
     
     id_log = Column(Integer, primary_key=True, autoincrement=True)
-    id_usuario = Column(Integer, ForeignKey('usuarios.id_usuario'), nullable=False)
+    id_usuario = Column(Integer, ForeignKey('usuario.id_usuario'), nullable=False)
     acao = Column(String(100), nullable=False)
     descricao = Column(Text)
     data_hora = Column(DateTime, nullable=False)
     
     # Relacionamento
-    usuario = relationship('Usuario', back_populates='logs_acesso')
+    usuario = relationship('usuario', back_populates='logs_acesso')

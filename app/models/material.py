@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, String, Enum, Boolean, Date, Text #import columns necessary
 from sqlalchemy.orm import relationship #import relationship table
-from enum import TipoMaterial #import file enum TipoMaterial
+from .enum import TipoMaterial #import file enum TipoMaterial
 from app import db
 # Tabela Materiais
 class Material(db.Model):
-    __tablename__ = 'materiais'
+    __tablename__ = 'material'
     
     id_material = Column(Integer, primary_key=True, autoincrement=True)
     titulo = Column(String(200), nullable=False)
@@ -25,5 +25,5 @@ class Material(db.Model):
     ativo = Column(Boolean, default=True)
     
     # Relacionamentos
-    emprestimos = relationship('Emprestimo', back_populates='material')
-    reservas = relationship('Reserva', back_populates='material')
+    emprestimos = relationship('emprestimo', back_populates='material')
+    reservas = relationship('reserva', back_populates='material')
