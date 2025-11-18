@@ -5,25 +5,25 @@ from app.models.enum import TipoUsuario
 
 usuario_bp = Blueprint('usuario', __name__)
 
-# @usuario_bp.route('', methods=['GET'])
-# def get_all_usuario():
-#     try:
-#         emprestimos = Emprestimo.query.all()
-#         output = []
+@usuario_bp.route('', methods=['GET'])
+def get_all_usuario():
+    try:
+        usuarios = usuario.query.all()
+        output = []
 
-#         for emprestimo in emprestimos:
-#             output.append({
-#                 'id_emprestimo': emprestimo.id_emprestimo,
-#                 'id_usuario': emprestimo.id_usuario,
-#                 'id_material': emprestimo.id_material,
-#                 'data_emprestimo': emprestimo.data_emprestimo.isoformat()if emprestimo.data_emprestimo else None,
-#                 'data_devolucao': emprestimo.data_devolucao.isoformat() if emprestimo.data_devolucao else None
-#             })
-#         return jsonify(output), 200
-#     except Exception as e:
-#         return jsonify({'error': str(e)}), 500
-
-usuario_bp = Blueprint('usuario', __name__)
+        for usuario in usuarios:
+            output.append({
+                'nome': usuario.nome,
+                'matricula': usuario.matricula,
+                'tipo_usuario': usuario.tipo_usuario,
+                'turma': usuario.turma,
+                'senha': usuario.senha,
+                'email': usuario.email,
+                'data_cadastro': usuario.data_cadastro.isoformat() 
+            })
+        return jsonify(output), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @usuario_bp.route('', methods=['POST'])
 def create_usuario():
@@ -75,6 +75,7 @@ def create_usuario():
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
+
 
 # @emprestimo_bp.route('/<int:emprestimo_id>', methods=['PUT'])
 # def put_all_emprestimo(emprestimo_id): 
